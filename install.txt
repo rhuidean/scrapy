@@ -1,0 +1,4 @@
+conda env list
+cd <env>
+pip install Scrapy
+pip install pypiwin32
