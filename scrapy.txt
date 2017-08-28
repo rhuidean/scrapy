@@ -1,9 +1,21 @@
-scrapy shell
-fetch("url")
-response
-response.xpath('h1')
-response.xpath('//h1/a')
-response.xpath('//h1/a.text()').extract()
-response.xpath('//h1/a.text()').extract_first()
-response.xpath('//*[@class="tag-item"]/a/text()')
-response.xpath('//*[@id="jason"]/a/text()').extract()
+1) Basic Scrapy Shell Commands
+	scrapy shell
+	fetch("url")
+	response
+	response.xpath('h1')
+	response.xpath('//h1/a')
+	response.xpath('//h1/a.text()').extract()
+	response.xpath('//h1/a.text()').extract_first()
+	response.xpath('//*[@class="tag-item"]/a/text()')
+	response.xpath('//*[@id="jason"]/a/text()').extract()
+
+2) Starting a Scrapy Project
+scrapy startproject project_name
+cd project_name 
+scrapy genspider alias url
+
+3) Run Spider
+project_name/settings.py
+->ROBOTSTXT_OBEY = False
+Scrapy list
+Scrapy crawl splider_name
