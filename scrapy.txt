@@ -17,5 +17,7 @@ scrapy genspider alias url
 3) Run Spider
 project_name/settings.py
 ->ROBOTSTXT_OBEY = False
-Scrapy list
-Scrapy crawl splider_name
+scrapy list
+scrapy crawl splider_name
+
+scrapy crawl quotes -o items.csv #.xml .json
