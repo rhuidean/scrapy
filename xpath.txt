@@ -1,0 +1,19 @@
+scrapy shell "http://quotes.toscrape.com/"
+
+quotes = response.xpath('//*[@class="quote"]')
+
+quote = quotes[0]
+
+quote.extract()
+
+quote.xpath('.//a')  #. -> within 
+
+text = quote.xpath('.//*[@class="text"]/text()').extract_first() 
+
+text = quote.xpath('.//*[@itemprop="text"]/text()').extract_first() 
+
+author = quote.xpath('.//*[@itemprop="keywords"]/@content').extract_first()
+
+tags = quote.xpath('.//*[@itemprop="author"]/text()').extract_first()
+
+### customer selector

@@ -1,0 +1,38 @@
+Scrapy Shell
+
+from scrapy.selector import Selector
+
+%paste
+html_doc = '''
+
+
+
+
+
+'''
+
+
+sel = Selector(text=html_doc)
+
+sel.extract()
+
+sel.xpath('/html/head/title').extract()
+
+sel.xpath('//title').extract()
+
+sel.xpath('//text()').extract()
+sel.xpath('//p').extract()
+
+sel.xpath('//html/body/p').extract()
+
+sel.xpath('//html/body/p[0]').extract() #html tag
+sel.xpath('//html/body/p')[0].extract()
+
+sel.xpath('//html/body/p/text()')[0].extract()
+sel.xpath('//html/body/p/text()').extract_first()
+
+sel.xpath('//h2')
+sel.xpath('//h2').extract()
+sel.xpath('//h2/a/@href').extract()
+sel.css('h2')
+

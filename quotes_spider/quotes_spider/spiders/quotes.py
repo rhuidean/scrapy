@@ -12,3 +12,9 @@ class QuotesSpider(scrapy.Spider):
         tags = response.xpath('//*[@class = "tag-item"]/a/text()').extract()
 
         yield {'H1 Tag': h1_tag, 'Tags': tags}
+
+        quotes = response.xpath('//*[@class="quote"]')
+        for quote in quotes:
+        	text = quote.xpath('.//*[@class="text"]/text()').extract_first()
+        	author = quote.xpath('.//*[@itemprop="keywords"]/@content').extract_first()
+        	tags = quote.xpath('.//*[@itemprop="author"]/text()').extract_first()
