@@ -1,4 +1,0 @@
-"Window"
-pip install Scrapy
-python
-import scrapy

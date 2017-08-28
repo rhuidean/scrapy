@@ -1,0 +1,9 @@
+scrapy shell
+fetch("url")
+response
+response.xpath('h1')
+response.xpath('//h1/a')
+response.xpath('//h1/a.text()').extract()
+response.xpath('//h1/a.text()').extract_first()
+response.xpath('//*[@class="tag-item"]/a/text()')
+response.xpath('//*[@id="jason"]/a/text()').extract()
