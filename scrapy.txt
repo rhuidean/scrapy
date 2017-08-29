@@ -21,3 +21,4 @@ scrapy list
 scrapy crawl splider_name
 
 scrapy crawl quotes -o items.csv #.xml .json
+scrpy crawl quotes -s USER AGENT ="Mozilla..."
