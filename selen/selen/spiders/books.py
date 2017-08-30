@@ -1,11 +1,42 @@
 # -*- coding: utf-8 -*-
-import scrapy
+from time import sleep
+from scrapy import Spider
+from selenium import webdriver
+from scrapy.selector import Selector
+from scrapy.http import Request
+from selenium.common.exceptions import NoSuchElementException
 
-
-class BooksSpider(scrapy.Spider):
+class BooksSpider(Spider):
     name = 'books'
     allowed_domains = ['books.toscrape.com']
-    start_urls = ['http://books.toscrape.com/']
 
-    def parse(self, response):
+    def start_requests(self):
+        self.driver = webdriver.Chrome('C:/Users/Jason/Anaconda3/envs/wcd-ml-b2/Lib/chromedriver')
+        self.driver.get('http://books.toscrape.com')
+
+        sel = Selector(text=self.driver.page_source)
+        books = sel.xpath('//h3/a/@href').extract()
+        for book in books:
+            url = 'http://books.toscrape.com/' + book # trailing slash matters o.w. 404 error
+            yield Request(url, callback=self.parse_book)
+
+        while True:
+            try:
+                next_page = self.driver.find_element_by_xpath('//a[text()="next"]')
+                sleep(3)
+                self.logger.info('Sleeping for 3 seconds.')
+                next_page.click() # traverse through pages
+
+                sel = Selector(text = self.driver.page_source)
+                books = sel.xpath('//h3/a/@href').extract()
+                for book in books:
+                    url = 'http://books.toscrape.com/catalogue/' + book # trailing slash matters o.w. 404 error
+                    yield Request(url, callback=self.parse_book)
+            
+            except NoSuchElementException:
+                self.logger.info('No more pages to load.')
+                self.dirver.quit()
+                break
+
+    def parse_book(self, response):
         pass
