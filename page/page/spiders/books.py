@@ -2,6 +2,9 @@
 from scrapy import Spider
 from scrapy.http import Request
 
+def product_info(response,value):
+	return response.xpath('//th[text()="' + value + '"]/following-sibling::td/text()').extract_first()
+
 class BooksSpider(Spider):
     name = 'books'
     allowed_domains = ['books.toscrape.com']
@@ -31,10 +34,25 @@ class BooksSpider(Spider):
     	description = response.xpath(
     		'//*[@id="product_description"]/following-sibling::p/text()').extract_first()
 
+    	# product information data points
+    	upc = product_info(response, 'UPC')
+    	product_type = product_info(response, 'Produc Type')
+    	price_without_tax = product_info(response, 'Price (excl. tax)')
+    	price_with_tax = product_info(response, 'Price (incl. tax)')
+    	availability =product_info(response, 'Availability')
+    	number_of_reviews =product_info(response, 'Number of reviews')
+
+
     	yield {
     		'title': title,
     		'price': price,
     		'image_url': image_url,
     		'rating': rating,
-    		'description': description
+    		'description': description,
+    		'upc' : upc,
+	    	'product_type' : product_type,
+	    	'price_without_tax' : price_without_tax,
+	    	'price_with_tax' :price_with_tax,
+	    	'availability' : availability,
+	    	'number_of_reviews' : number_of_reviews
     	}
