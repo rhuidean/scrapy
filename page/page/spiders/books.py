@@ -8,7 +8,12 @@ def product_info(response,value):
 class BooksSpider(Spider):
     name = 'books'
     allowed_domains = ['books.toscrape.com']
-    start_urls = ['http://books.toscrape.com/']
+    # start_urls = ['http://books.toscrape.com/']
+    # customize scraping search
+
+    def __init__(self,category):
+    	self.start_urls = [category]
+    # terminal command: scrapy crawl books -a category="http://books.toscrape.com/catalogue/category/books/travel_2/index.html"
 
     def parse(self, response):
         books = response.xpath('//h3/a/@href').extract()
